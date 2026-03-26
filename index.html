@@ -12,11 +12,11 @@
             box-sizing: border-box;
         }
 
-        body {
+        html, body {
             min-height: 100vh;
+            width: 100%;
             font-family: 'Georgia', 'Times New Roman', 'Segoe UI', serif;
             background: #1a2418;
-            overflow-x: hidden;
         }
 
         .hero {
@@ -32,16 +32,18 @@
 
         /* Animated background container */
         .animated-bg {
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
+            right: 0;
+            bottom: 0;
             width: 100%;
             height: 100%;
             z-index: 0;
             overflow: hidden;
         }
 
-        /* Base image - FIXED for mobile: contain ensures full image visible */
+        /* Base image - COVER ensures full screen on all devices */
         .bg-base {
             position: absolute;
             top: 0;
@@ -49,11 +51,10 @@
             width: 100%;
             height: 100%;
             background-image: url('https://i.imgur.com/FaCdCxT.jpeg');
-            background-size: contain;
+            background-size: cover;
             background-position: center center;
             background-repeat: no-repeat;
-            background-color: #1a2a1a;
-            /* Pixelation effect */
+            /* Pixelation effect - subtle retro game style */
             image-rendering: crisp-edges;
             image-rendering: pixelated;
             filter: contrast(1.08) saturate(1.02);
@@ -166,18 +167,18 @@
             50% { opacity: 0.5; }
         }
 
-        /* Dark overlay for text readability - softer on edges */
+        /* Dark overlay for text readability */
         .text-overlay {
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
             background: linear-gradient(
                 to bottom,
-                rgba(0, 0, 0, 0.25) 0%,
+                rgba(0, 0, 0, 0.3) 0%,
                 rgba(0, 0, 0, 0.6) 50%,
-                rgba(0, 0, 0, 0.7) 100%
+                rgba(0, 0, 0, 0.75) 100%
             );
             z-index: 1;
         }
@@ -388,10 +389,10 @@
             margin-right: auto;
         }
 
-        /* ========== MOBILE FIXES ========== */
+        /* ========== MOBILE OPTIMIZATION ========== */
         @media (max-width: 768px) {
             .text-container {
-                width: 95%;
+                width: 92%;
                 padding: 1rem;
             }
             .ticker {
@@ -428,19 +429,24 @@
         }
 
         @media (max-width: 480px) {
+            .text-container {
+                width: 95%;
+                padding: 0.8rem;
+            }
             .ticker {
                 font-size: 2.2rem;
                 letter-spacing: 3px;
             }
             .sub {
-                font-size: 0.75rem;
+                font-size: 0.7rem;
+                margin-bottom: 0.6rem;
             }
             .verse-text {
                 font-size: 0.7rem;
                 line-height: 1.45;
             }
             .verse-ref {
-                font-size: 0.65rem;
+                font-size: 0.6rem;
             }
             .time-number {
                 font-size: 1rem;
@@ -458,20 +464,28 @@
                 font-size: 0.7rem;
             }
             .footer {
-                font-size: 0.55rem;
+                font-size: 0.5rem;
+            }
+            .countdown-section {
+                margin: 0.8rem 0;
+            }
+            .scripture {
+                margin: 0.8rem 0;
             }
         }
 
-        /* Landscape orientation */
+        /* Landscape orientation fix */
         @media (max-width: 900px) and (orientation: landscape) {
             .text-container {
-                padding: 0.8rem;
+                padding: 0.6rem;
+                width: 90%;
             }
             .ticker {
                 font-size: 2rem;
             }
             .verse-text {
                 font-size: 0.7rem;
+                line-height: 1.3;
             }
             .time-number {
                 font-size: 1rem;
@@ -480,7 +494,10 @@
                 min-width: 40px;
             }
             .pillars {
-                margin: 0.5rem 0;
+                margin: 0.4rem 0;
+            }
+            .countdown-section {
+                margin: 0.6rem 0;
             }
         }
 
@@ -625,7 +642,7 @@
         function createSparkles() {
             const container = document.getElementById('sparkleLayer');
             if (!container) return;
-            const sparkleCount = 30;
+            const sparkleCount = 35;
             for (let i = 0; i < sparkleCount; i++) {
                 const sparkle = document.createElement('div');
                 sparkle.classList.add('sparkle');

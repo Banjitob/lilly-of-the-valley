@@ -30,7 +30,6 @@
             overflow: hidden;
         }
 
-        /* Animated background container - fills everything */
         .animated-bg {
             position: fixed;
             top: 0;
@@ -43,7 +42,6 @@
             overflow: hidden;
         }
 
-        /* Base image - COVER ensures full screen, no gaps */
         .bg-base {
             position: absolute;
             top: 0;
@@ -54,14 +52,12 @@
             background-size: cover;
             background-position: center center;
             background-repeat: no-repeat;
-            /* Pixelation effect */
             image-rendering: crisp-edges;
             image-rendering: pixelated;
             filter: contrast(1.08) saturate(1.02);
             animation: gentleScale 20s ease-in-out infinite;
         }
 
-        /* Fallback color that matches image (warm earth tone) */
         .bg-base::before {
             content: '';
             position: absolute;
@@ -74,15 +70,10 @@
         }
 
         @keyframes gentleScale {
-            0%, 100% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.02);
-            }
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
         }
 
-        /* Soft moving light overlay */
         .light-overlay {
             position: absolute;
             top: 0;
@@ -99,7 +90,6 @@
             50% { opacity: 0.8; }
         }
 
-        /* Drifting cloud layer */
         .cloud-layer {
             position: absolute;
             top: 0;
@@ -127,7 +117,6 @@
             }
         }
 
-        /* Floating sparkles */
         .sparkle-layer {
             position: absolute;
             top: 0;
@@ -179,7 +168,6 @@
             50% { opacity: 0.5; }
         }
 
-        /* Dark overlay for text readability */
         .text-overlay {
             position: fixed;
             top: 0;
@@ -195,7 +183,6 @@
             z-index: 1;
         }
 
-        /* Text container */
         .text-container {
             position: relative;
             z-index: 2;
@@ -204,6 +191,60 @@
             padding: 1.5rem;
             color: #fff8e7;
             text-shadow: 2px 2px 12px rgba(0, 0, 0, 0.7);
+        }
+
+        /* ===== LOGO STYLES ===== */
+        .logo-container {
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 245, 200, 0.15);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 235, 170, 0.5);
+            transition: all 0.3s ease;
+            animation: logoGlow 3s ease-in-out infinite;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+            border-color: rgba(255, 235, 170, 0.9);
+            box-shadow: 0 0 20px rgba(255, 220, 120, 0.3);
+        }
+
+        /* Default lily icon (replace with your actual logo image) */
+        .logo-icon {
+            font-size: 3rem;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+        }
+
+        /* If you want to use an actual image logo, uncomment this and replace the URL */
+        *
+        .logo-img {
+            width: 65px;
+            height: 65px;
+            object-fit: contain;
+            border-radius: 50%;
+        }
+        *
+
+        @keyframes logoGlow {
+            0%, 100% {
+                box-shadow: 0 0 5px rgba(255, 235, 170, 0.3);
+            }
+            50% {
+                box-shadow: 0 0 20px rgba(255, 235, 170, 0.6);
+            }
         }
 
         .ticker {
@@ -401,7 +442,6 @@
             margin-right: auto;
         }
 
-        /* ========== MOBILE OPTIMIZATION ========== */
         @media (max-width: 768px) {
             .text-container {
                 width: 92%;
@@ -424,6 +464,13 @@
             }
             .time-block {
                 min-width: 45px;
+            }
+            .logo {
+                width: 65px;
+                height: 65px;
+            }
+            .logo-icon {
+                font-size: 2.5rem;
             }
         }
 
@@ -451,6 +498,13 @@
             }
             .pillar {
                 font-size: 0.6rem;
+            }
+            .logo {
+                width: 55px;
+                height: 55px;
+            }
+            .logo-icon {
+                font-size: 2rem;
             }
         }
 
@@ -482,6 +536,18 @@
         <div class="text-overlay"></div>
         
         <div class="text-container">
+            <!-- LOGO SECTION -->
+            <div class="logo-container">
+                <div class="logo">
+                    <!-- Option 1: Using a lily emoji as placeholder logo -->
+                   <img class="logo-img" src="https://i.imgur.com/vYqW5um.jpeg" alt="$LILV Logo">
+                    
+                    <!-- Option 2: If you have an actual logo image, replace the above with this:
+                    <img class="logo-img" src="your-logo.png" alt="$LILV Logo">
+                    -->
+                </div>
+            </div>
+            
             <div class="ticker">$LILV</div>
             <div class="sub">Lily of the Valley</div>
             

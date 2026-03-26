@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Lily of the Valley | $LOTV – Faith on Solana</title>
-  <!-- Google Fonts: elegant serif + clean sans -->
+  <title>Lily of the Valley | $LILV – Faith on Solana</title>
+  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600&display=swap" rel="stylesheet">
   <style>
     * {
@@ -15,13 +15,14 @@
 
     body {
       font-family: 'Inter', sans-serif;
-      background-color: #fef7e8;
+      background-color: #fef5e6;
       color: #2c2a24;
       line-height: 1.5;
       scroll-behavior: smooth;
+      overflow-x: hidden;
     }
 
-    /* BACKGROUND - separate images for mobile and desktop */
+    /* BACKGROUND */
     .bg-container {
       position: fixed;
       top: 0;
@@ -32,59 +33,41 @@
       overflow: hidden;
     }
 
-    /* Default background (desktop) */
     .bg-image {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background-image: url('YOUR_DESKTOP_IMAGE_URL_HERE');
+      background-image: url('https://i.imgur.com/ugEvBXZ.jpeg');
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
     }
     
-    /* Mobile background - replaces desktop version on small screens */
     .bg-image-mobile {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background-image: url('YOUR_MOBILE_IMAGE_URL_HERE');
+      background-image: url('https://i.imgur.com/Gr4n8vm.png');
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
-      display: none; /* hidden by default */
+      display: none;
     }
     
-    /* Soft overlay for text readability */
     .bg-overlay {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: radial-gradient(circle at 50% 30%, rgba(255,250,225,0.75) 0%, rgba(240,245,220,0.8) 100%);
-      backdrop-filter: blur(3px);
+      background: linear-gradient(135deg, rgba(255, 250, 240, 0.4) 0%, rgba(255, 248, 235, 0.3) 50%, rgba(255, 245, 230, 0.4) 100%);
       z-index: 1;
     }
     
-    /* Additional subtle darkening for better text contrast */
-    .bg-container::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.08);
-      z-index: 1;
-      pointer-events: none;
-    }
-    
-    /* Switch to mobile background on tablets and phones */
     @media (max-width: 768px) {
       .bg-image {
         display: none;
@@ -93,29 +76,227 @@
         display: block;
       }
     }
-    
-    /* Optional: for very small phones, adjust overlay for better readability */
-    @media (max-width: 480px) {
-      .bg-overlay {
-        background: radial-gradient(circle at 50% 30%, rgba(255,250,225,0.8) 0%, rgba(240,245,220,0.85) 100%);
-        backdrop-filter: blur(2px);
-      }
-    }
 
-    /* main content */
     .content {
       position: relative;
       z-index: 5;
-      max-width: 1280px;
+      max-width: 1200px;
       margin: 0 auto;
       padding: 2rem 2rem 4rem;
     }
 
-    /* smooth fade-in for sections */
+    /* Logo Styles */
+    .logo-container {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+    }
+    
+    .logo-image {
+      max-width: 120px;
+      height: auto;
+      border-radius: 20px;
+      filter: drop-shadow(0 4px 12px rgba(0,0,0,0.1));
+      transition: transform 0.3s ease;
+    }
+    
+    .logo-image:hover {
+      transform: scale(1.05);
+    }
+    
+    @media (max-width: 768px) {
+      .logo-image {
+        max-width: 80px;
+      }
+    }
+
+    /* Bible Flipping Animation */
+    .bible-sidebar {
+      position: fixed;
+      left: 30px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 20;
+      width: 80px;
+      height: 100px;
+      cursor: pointer;
+      pointer-events: none;
+    }
+
+    .bible-book {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.8s cubic-bezier(0.4, 0.2, 0.2, 1);
+    }
+
+    .bible-cover {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #8B5A2B, #5D3A1A);
+      border-radius: 8px 12px 12px 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 5px 5px 15px rgba(0,0,0,0.3);
+      border-right: 3px solid #e2bc7c;
+      backface-visibility: hidden;
+    }
+
+    .bible-cover span {
+      font-size: 32px;
+    }
+
+    .bible-pages {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #FFF8E7;
+      border-radius: 4px 12px 12px 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+      transform-origin: left center;
+      transform: rotateY(-180deg);
+      backface-visibility: hidden;
+      padding: 10px;
+      text-align: center;
+      font-size: 12px;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: bold;
+      color: #5D3A1A;
+    }
+
+    .bible-book.flipped {
+      transform: rotateY(180deg);
+    }
+
+    /* Chatbot */
+    .chatbot-container {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 100;
+    }
+
+    .chatbot-toggle {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, #e2bc7c, #c9aa5f);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      transition: transform 0.3s;
+      font-size: 30px;
+    }
+
+    .chatbot-toggle:hover {
+      transform: scale(1.1);
+    }
+
+    .chatbot-window {
+      position: absolute;
+      bottom: 80px;
+      right: 0;
+      width: 320px;
+      height: 450px;
+      background: #FFF8EF;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+      border: 1px solid #e2bc7c;
+    }
+
+    .chatbot-window.open {
+      display: flex;
+    }
+
+    .chatbot-header {
+      background: linear-gradient(135deg, #e2bc7c, #c9aa5f);
+      padding: 15px;
+      color: #4a3620;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .chatbot-messages {
+      flex: 1;
+      padding: 15px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .message {
+      padding: 8px 12px;
+      border-radius: 15px;
+      max-width: 85%;
+      word-wrap: break-word;
+    }
+
+    .user-message {
+      background: #e2bc7c;
+      color: #2c2a24;
+      align-self: flex-end;
+    }
+
+    .bot-message {
+      background: #F5E6D3;
+      color: #2c2a24;
+      align-self: flex-start;
+      border-left: 3px solid #e2bc7c;
+    }
+
+    .chatbot-input-area {
+      display: flex;
+      padding: 10px;
+      border-top: 1px solid #e2bc7c;
+    }
+
+    .chatbot-input {
+      flex: 1;
+      padding: 8px;
+      border: 1px solid #e2bc7c;
+      border-radius: 20px;
+      outline: none;
+      font-family: inherit;
+    }
+
+    .chatbot-send {
+      background: #e2bc7c;
+      border: none;
+      border-radius: 20px;
+      padding: 8px 15px;
+      margin-left: 8px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    /* Section Styling */
+    .section-card {
+      background: rgba(255, 248, 235, 0.92);
+      border-radius: 32px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      border: 1px solid rgba(226, 188, 124, 0.3);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    }
+
     .fade-up {
       opacity: 0;
       transform: translateY(20px);
-      animation: fadeUp 0.9s ease forwards;
+      animation: fadeUp 0.8s ease forwards;
     }
 
     @keyframes fadeUp {
@@ -125,31 +306,17 @@
       }
     }
 
-    /* petal canvas container */
-    #petal-canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 10;
-    }
-
-    /* typography */
-    h1, h2, h3, .scripture-text {
+    h1, h2, h3 {
       font-family: 'Cormorant Garamond', serif;
-      font-weight: 500;
+      font-weight: 600;
     }
 
     h1 {
       font-size: clamp(3rem, 8vw, 5.5rem);
-      letter-spacing: -0.02em;
-      background: linear-gradient(135deg, #C7A252, #E4C087, #9F7E3E);
+      background: linear-gradient(135deg, #C7A252, #9F7E3E);
       background-clip: text;
       -webkit-background-clip: text;
       color: transparent;
-      text-shadow: 0 2px 12px rgba(199,162,82,0.2);
       margin-bottom: 0.5rem;
     }
 
@@ -169,169 +336,414 @@
       text-decoration: none;
       transition: all 0.25s ease;
       font-size: 1.05rem;
-      backdrop-filter: blur(4px);
-      background: rgba(255,255,240,0.85);
-      border: 1px solid rgba(199,162,82,0.5);
-      color: #4a3b1c;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.02);
-    }
-
-    .btn-primary {
       background: #e7dbbc;
-      border-color: #c9aa5f;
+      border: 1px solid #c9aa5f;
       color: #4a3620;
-      box-shadow: 0 8px 20px rgba(160,120,40,0.1);
+      cursor: pointer;
     }
 
-    .btn-primary:hover {
+    .btn:hover {
       background: #f3e9cf;
-      border-color: #b8860b;
-      transform: translateY(-3px);
-      box-shadow: 0 15px 25px -10px rgba(0,0,0,0.2);
+      transform: translateY(-2px);
     }
 
-    .btn-outline {
-      background: rgba(255,250,235,0.8);
+    .btn-gold {
+      background: linear-gradient(135deg, #e2bc7c, #c9aa5f);
+      color: #2c2a24;
+      border: none;
+      font-weight: 600;
+    }
+
+    /* Presale Section Styles */
+    .presale-card {
+      background: linear-gradient(135deg, rgba(255, 250, 235, 0.98), rgba(245, 240, 225, 0.98));
+      border: 2px solid #e2bc7c;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    
+    .presale-card:hover {
+      transform: translateY(-5px);
+    }
+    
+    .presale-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(226, 188, 124, 0.05) 0%, transparent 70%);
+      animation: rotate 20s linear infinite;
+    }
+    
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    
+    .presale-header {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .presale-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, #e2bc7c, #c9aa5f);
+      padding: 0.3rem 1.2rem;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+    }
+    
+    .presale-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+      margin: 1.5rem 0;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .presale-stat {
+      text-align: center;
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.5);
+      border-radius: 20px;
+    }
+    
+    .presale-stat-label {
+      font-size: 0.85rem;
+      color: #8B7355;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    .presale-stat-value {
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: #c9aa5f;
+      margin-top: 0.3rem;
+    }
+    
+    .progress-bar-container {
+      background: rgba(226, 188, 124, 0.2);
+      border-radius: 30px;
+      height: 12px;
+      overflow: hidden;
+      margin: 1rem 0;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .progress-bar-fill {
+      background: linear-gradient(90deg, #e2bc7c, #c9aa5f);
+      width: 0%;
+      height: 100%;
+      border-radius: 30px;
+      transition: width 0.5s ease;
+    }
+    
+    .join-presale-btn {
+      width: 100%;
+      padding: 1rem;
+      margin-top: 1rem;
+      font-size: 1.2rem;
+      font-weight: bold;
+      position: relative;
+      z-index: 1;
+    }
+    
+    /* Waitlist Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
       backdrop-filter: blur(5px);
     }
-
-    .btn-outline:hover {
-      background: rgba(245,235,200,0.95);
-      transform: translateY(-2px);
-      border-color: #c6a155;
+    
+    .modal.open {
+      display: flex;
+    }
+    
+    .modal-content {
+      background: linear-gradient(135deg, #FFF9EF, #FFF5E8);
+      border-radius: 32px;
+      max-width: 500px;
+      width: 90%;
+      padding: 2rem;
+      position: relative;
+      border: 2px solid #e2bc7c;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+      animation: modalSlideIn 0.3s ease;
+    }
+    
+    @keyframes modalSlideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .modal-close {
+      position: absolute;
+      top: 1rem;
+      right: 1.5rem;
+      font-size: 2rem;
+      cursor: pointer;
+      color: #c9aa5f;
+      transition: transform 0.2s;
+    }
+    
+    .modal-close:hover {
+      transform: scale(1.1);
+    }
+    
+    .modal h3 {
+      font-size: 1.8rem;
+      text-align: center;
+      margin-bottom: 0.5rem;
+      color: #5D3A1A;
+    }
+    
+    .modal-subtitle {
+      text-align: center;
+      color: #8B7355;
+      margin-bottom: 1.5rem;
+      font-size: 0.9rem;
+    }
+    
+    .waitlist-input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+    
+    .waitlist-input {
+      width: 100%;
+      padding: 1rem 1.2rem;
+      border-radius: 60px;
+      border: 2px solid #e2bc7c;
+      background: white;
+      font-family: inherit;
+      font-size: 1rem;
+      outline: none;
+      transition: all 0.3s;
+    }
+    
+    .waitlist-input:focus {
+      border-color: #c9aa5f;
+      box-shadow: 0 0 0 3px rgba(226, 188, 124, 0.2);
+    }
+    
+    .waitlist-input::placeholder {
+      color: #c9aa5f;
+      opacity: 0.6;
+    }
+    
+    .waitlist-note {
+      font-size: 0.8rem;
+      color: #8B7355;
+      text-align: center;
+      margin-top: 1rem;
+    }
+    
+    .waitlist-success {
+      text-align: center;
+      padding: 1rem;
+    }
+    
+    .waitlist-success h4 {
+      color: #c9aa5f;
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
     }
 
-    /* cards and sections */
-    .card {
-      background: rgba(255, 252, 242, 0.8);
-      backdrop-filter: blur(8px);
-      border-radius: 48px;
-      padding: 2rem 2rem;
-      border: 1px solid rgba(230, 210, 150, 0.5);
-      box-shadow: 0 15px 35px -15px rgba(0,0,0,0.1);
-      transition: all 0.2s;
+    /* Countdown Styles */
+    .countdown-wrapper {
+      text-align: center;
+      margin: 1rem 0 2rem;
     }
 
-    .glass-card {
-      background: rgba(255, 250, 235, 0.75);
-      backdrop-filter: blur(6px);
-      border-radius: 2rem;
-    }
-
-    .mission-card, .token-card {
-      background: rgba(255, 248, 235, 0.85);
+    .countdown-label {
+      font-size: 1.2rem;
+      letter-spacing: 2px;
+      color: #9f7c3e;
+      margin-bottom: 1rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      display: inline-block;
+      background: rgba(255, 250, 235, 0.7);
+      padding: 0.3rem 1.5rem;
+      border-radius: 50px;
       backdrop-filter: blur(4px);
     }
 
-    .scripture-box {
-      background: rgba(245, 240, 225, 0.8);
-      backdrop-filter: blur(5px);
-      border-left: 6px solid #e2bc7c;
-      padding: 2rem;
-      border-radius: 2rem;
-      max-width: 800px;
-      margin: 2rem auto;
+    .countdown-container {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
     }
 
-    .countdown-timer {
-      font-size: clamp(2rem, 6vw, 4rem);
+    .countdown-card {
+      background: linear-gradient(145deg, rgba(255, 250, 240, 0.95), rgba(245, 240, 225, 0.95));
+      backdrop-filter: blur(8px);
+      border-radius: 28px;
+      padding: 1.2rem 1.8rem;
+      min-width: 110px;
+      text-align: center;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(226, 188, 124, 0.3);
+      transition: transform 0.3s ease;
+    }
+
+    .countdown-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .countdown-number {
+      font-size: clamp(2.5rem, 6vw, 4rem);
       font-family: 'Cormorant Garamond', monospace;
-      font-weight: 600;
-      letter-spacing: 0.05em;
-      background: linear-gradient(145deg, #D7B15D, #F3DEA5);
+      font-weight: 700;
+      background: linear-gradient(135deg, #D7B15D, #B8860B);
       background-clip: text;
       -webkit-background-clip: text;
       color: transparent;
-      text-shadow: 0 0 12px rgba(218, 165, 32, 0.4);
+      line-height: 1;
+      margin-bottom: 0.3rem;
+      letter-spacing: 2px;
     }
 
-    .timer-wrapper {
-      background: rgba(255,247,225,0.65);
-      border-radius: 80px;
-      padding: 0.5rem 1.8rem;
-      display: inline-block;
-      backdrop-filter: blur(4px);
-    }
-
-    footer {
-      border-top: 1px solid rgba(200, 170, 100, 0.3);
-      margin-top: 4rem;
-      text-align: center;
-      padding-top: 2rem;
+    .countdown-unit {
       font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #8B7355;
+      font-weight: 500;
     }
 
-    /* responsiveness */
-    @media (max-width: 768px) {
-      .content {
-        padding: 1.5rem;
+    @media (max-width: 640px) {
+      .countdown-container {
+        gap: 0.8rem;
       }
-      .btn {
-        padding: 0.7rem 1.8rem;
-        font-size: 0.95rem;
+      .countdown-card {
+        padding: 0.8rem 1.2rem;
+        min-width: 70px;
       }
-      .card {
-        padding: 1.5rem;
-      }
-      h2 {
+      .countdown-number {
         font-size: 1.8rem;
       }
+      .countdown-unit {
+        font-size: 0.7rem;
+      }
     }
 
-    @media (max-width: 480px) {
-      .btn-group {
-        gap: 0.8rem;
-        flex-direction: column;
-        align-items: stretch;
-      }
-      .btn {
-        text-align: center;
+    .roadmap-grid, .stats-grid, .team-grid, .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .roadmap-item, .stat-card, .team-card, .testimonial-card {
+      background: #FFF9EF;
+      padding: 1.5rem;
+      border-radius: 20px;
+      border-left: 4px solid #e2bc7c;
+    }
+
+    .roadmap-phase, .stat-number {
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: #c9aa5f;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-number {
+      font-size: 2rem;
+    }
+
+    .scripture-box {
+      background: #FFF9EF;
+      border-left: 6px solid #e2bc7c;
+      padding: 2rem;
+      border-radius: 20px;
+      text-align: center;
+    }
+
+    .team-card {
+      text-align: center;
+      border-left: none;
+      border-top: 4px solid #e2bc7c;
+    }
+
+    .team-emoji {
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .testimonial-card {
+      font-style: italic;
+    }
+
+    .faq-item {
+      margin-bottom: 1rem;
+      padding: 1rem;
+      background: #FFF9EF;
+      border-radius: 16px;
+    }
+
+    .faq-question {
+      font-weight: bold;
+      color: #c9aa5f;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .faq-answer {
+      display: none;
+      margin-top: 0.5rem;
+      padding-top: 0.5rem;
+      border-top: 1px solid #eedbae;
+    }
+
+    .faq-answer.show {
+      display: block;
+    }
+
+    @media (max-width: 768px) {
+      .bible-sidebar {
+        left: 10px;
+        width: 60px;
+        height: 80px;
       }
       .content {
         padding: 1rem;
       }
-      .card {
+      .section-card {
         padding: 1.2rem;
       }
-    }
-
-    .social-icons {
-      display: flex;
-      gap: 1.5rem;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-top: 1rem;
-    }
-
-    .social-link {
-      background: rgba(245, 240, 225, 0.85);
-      backdrop-filter: blur(5px);
-      padding: 0.7rem 1.8rem;
-      border-radius: 60px;
-      text-decoration: none;
-      font-weight: 500;
-      color: #5c471f;
-      border: 1px solid #eedbae;
-      transition: all 0.2s;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .social-link:hover {
-      background: #f5e9cf;
-      transform: translateY(-2px);
-      border-color: #c9aa5f;
-      box-shadow: 0 6px 14px rgba(0,0,0,0.08);
-    }
-
-    /* Fix for very small devices */
-    @media (max-width: 380px) {
-      .scripture-box {
-        padding: 1.2rem;
-      }
-      .timer-wrapper {
-        padding: 0.3rem 1.2rem;
+      .chatbot-window {
+        width: 280px;
+        height: 400px;
       }
     }
   </style>
@@ -339,251 +751,438 @@
 <body>
 
 <div class="bg-container">
-  <!-- Desktop background - visible on screens larger than 768px -->
-  <div class="bg-image" style="background-image: url('https://i.imgur.com/ugEvBXZ.jpeg');"></div>
-  
-  <!-- Mobile background - visible on screens 768px and smaller -->
-  <!-- Replace the URL below with your mobile-specific image -->
-  <div class="bg-image-mobile" style="background-image: url('https://i.imgur.com/Gr4n8vm.png');"></div>
-  
+  <div class="bg-image"></div>
+  <div class="bg-image-mobile"></div>
   <div class="bg-overlay"></div>
 </div>
 
-<canvas id="petal-canvas"></canvas>
+<!-- BIBLE FLIPPING ANIMATION -->
+<div class="bible-sidebar">
+  <div class="bible-book" id="bibleBook">
+    <div class="bible-cover"><span>📖</span></div>
+    <div class="bible-pages" id="bibleVerseText">John 3:16</div>
+  </div>
+</div>
+
+<!-- CHATBOT -->
+<div class="chatbot-container">
+  <div class="chatbot-toggle" onclick="toggleChat()">💬</div>
+  <div class="chatbot-window" id="chatbotWindow">
+    <div class="chatbot-header">🙏 Bible Verse Helper</div>
+    <div class="chatbot-messages" id="chatMessages">
+      <div class="message bot-message">Hello! Ask me for any Bible verse. Try: "John 3:16" or "Psalm 23"</div>
+    </div>
+    <div class="chatbot-input-area">
+      <input type="text" class="chatbot-input" id="chatInput" placeholder="Enter a verse" onkeypress="if(event.key==='Enter') sendMessage()">
+      <button class="chatbot-send" onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+</div>
+
+<!-- WAITLIST MODAL -->
+<div class="modal" id="waitlistModal">
+  <div class="modal-content">
+    <span class="modal-close" onclick="closeWaitlistModal()">&times;</span>
+    <h3>🌸 Join the Waitlist</h3>
+    <div class="modal-subtitle">Be the first to know when the presale goes live!</div>
+    
+    <div id="waitlistForm">
+      <div class="waitlist-input-group">
+        <input type="text" class="waitlist-input" id="waitlistWallet" placeholder="Enter your Solana wallet address" autocomplete="off">
+        <input type="email" class="waitlist-input" id="waitlistEmail" placeholder="Enter your email (optional)">
+        <button class="btn btn-gold" onclick="submitToWaitlist()">📝 Join Waitlist</button>
+      </div>
+      <div class="waitlist-note">
+        📖 10% of all contributions go directly to Bible distribution<br>
+        ✨ Early access to presale • Priority notifications
+      </div>
+    </div>
+    
+    <div id="waitlistSuccess" style="display: none;" class="waitlist-success">
+      <h4>✨ You're on the list! ✨</h4>
+      <p>Thank you for joining the Lily of the Valley waitlist.</p>
+      <p style="margin-top: 0.5rem; font-size: 0.9rem;">We'll notify you when the presale begins. 🙏</p>
+      <button class="btn" onclick="closeWaitlistModal()" style="margin-top: 1rem;">Close</button>
+    </div>
+  </div>
+</div>
 
 <main class="content">
+  <!-- Logo Section -->
+  <div class="logo-container fade-up" style="animation-delay: 0s;">
+    <img src="https://i.imgur.com/UkJRJUN.jpeg" alt="Lily of the Valley Logo" class="logo-image" id="logoImage" onerror="this.style.display='none'">
+  </div>
+
   <!-- Hero Section -->
-  <section class="fade-up" style="animation-delay: 0.1s; text-align: center; margin: 2rem 0 3rem;">
-    <div class="glass-card" style="display: inline-block; padding: 1rem 2rem; border-radius: 100px; margin-bottom: 1rem;">
-      <span style="font-weight: 400; color: #9f7c3e;">✞ Solana Faith Initiative ✞</span>
+  <section class="fade-up" style="animation-delay: 0.1s; text-align: center;">
+    <div style="background: rgba(255,250,235,0.85); display: inline-block; padding: 0.5rem 1.5rem; border-radius: 100px; margin-bottom: 1rem;">
+      <span style="color: #9f7c3e;">✞ Solana Faith Initiative ✞</span>
     </div>
     <h1>Lily of the Valley</h1>
-    <p style="font-size: clamp(1.1rem, 4vw, 1.5rem); max-width: 700px; margin: 0.8rem auto 0; color: #2e2b23;">
-      A faith-driven coin on Solana spreading hope through giving
-    </p>
+    <p style="font-size: clamp(1.1rem, 4vw, 1.4rem); max-width: 700px; margin: 0.8rem auto;">A faith-driven coin on Solana spreading hope through giving</p>
     <div class="btn-group">
-      <a href="https://t.me/+K3In-nL7kw40MWIx" target="_blank" class="btn btn-primary">🌸 Join Community</a>
-      <a href="https://x.com/LillioValli" target="_blank" class="btn btn-outline">✧ View on X</a>
+      <a href="https://t.me/+K3In-nL7kw40MWIx" target="_blank" class="btn">🌸 Join Community</a>
+      <a href="https://x.com/LillioValli" target="_blank" class="btn">✧ View on X</a>
     </div>
   </section>
 
-  <!-- Countdown Timer Section -->
-  <section class="fade-up" style="animation-delay: 0.2s; text-align: center; margin: 2rem 0 3rem;">
-    <div class="timer-wrapper">
-      <p style="font-size: 1.2rem; letter-spacing: 1px; margin-bottom: 0.4rem; color: #5f4a25;">🌿 Launches April 1st</p>
-      <div id="countdown" class="countdown-timer">--d --h --m --s</div>
+  <!-- PRESALE SECTION - Click to Join Waitlist -->
+  <section class="fade-up" style="animation-delay: 0.15s;">
+    <div class="section-card presale-card" onclick="openWaitlistModal()">
+      <div class="presale-header">
+        <div class="presale-badge">🔥 PRESALE COMING SOON 🔥</div>
+        <h2 style="font-size: 2rem;">Early Bloomers Presale</h2>
+        <p>Get $LILV at the best price before the official launch</p>
+      </div>
+      
+      <div class="presale-stats">
+        <div class="presale-stat">
+          <div class="presale-stat-label">Presale Price</div>
+          <div class="presale-stat-value">1 SOL = 10,000 $LILV</div>
+        </div>
+        <div class="presale-stat">
+          <div class="presale-stat-label">Minimum Contribution</div>
+          <div class="presale-stat-value">0.1 SOL</div>
+        </div>
+        <div class="presale-stat">
+          <div class="presale-stat-label">Maximum Contribution</div>
+          <div class="presale-stat-value">100 SOL</div>
+        </div>
+      </div>
+      
+      <div class="presale-stat">
+        <div class="presale-stat-label">Target Raise</div>
+        <div class="presale-stat-value">4,000 SOL</div>
+      </div>
+      
+      <div class="progress-bar-container">
+        <div class="progress-bar-fill" style="width: 0%"></div>
+      </div>
+      <p style="text-align: center; font-size: 0.85rem;">Presale starting soon • Join the waitlist for early access</p>
+      
+      <button class="btn btn-gold join-presale-btn" onclick="event.stopPropagation(); openWaitlistModal()">🌸 Join Presale Waitlist 🌸</button>
+      
+      <div class="presale-note">
+        📖 10% of all contributions go directly to Bible distribution • Limited spots available
+      </div>
     </div>
   </section>
 
-  <!-- Scripture Section with Matthew 6:28–29 -->
+  <!-- Countdown Timer -->
+  <section class="fade-up" style="animation-delay: 0.2s;">
+    <div class="countdown-wrapper">
+      <div class="countdown-label">
+        🌿 Launches April 1st 🌿
+      </div>
+      <div class="countdown-container" id="countdownContainer">
+        <div class="countdown-card">
+          <div class="countdown-number" id="days">00</div>
+          <div class="countdown-unit">Days</div>
+        </div>
+        <div class="countdown-card">
+          <div class="countdown-number" id="hours">00</div>
+          <div class="countdown-unit">Hours</div>
+        </div>
+        <div class="countdown-card">
+          <div class="countdown-number" id="minutes">00</div>
+          <div class="countdown-unit">Minutes</div>
+        </div>
+        <div class="countdown-card">
+          <div class="countdown-number" id="seconds">00</div>
+          <div class="countdown-unit">Seconds</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Scripture -->
   <section class="fade-up" style="animation-delay: 0.3s;">
     <div class="scripture-box">
-      <p class="scripture-text" style="font-size: clamp(1.2rem, 4vw, 1.7rem); font-style: italic; line-height: 1.4;">
+      <p style="font-size: clamp(1.2rem, 4vw, 1.6rem); font-style: italic; font-family: 'Cormorant Garamond', serif;">
         “Consider the lilies of the field, how they grow; they toil not, neither do they spin:<br>
         And yet I say unto you, That even Solomon in all his glory was not arrayed like one of these.”
       </p>
-      <p style="margin-top: 1rem; font-weight: 400; letter-spacing: 1px; font-family: 'Inter', sans-serif;">— Matthew 6:28–29</p>
+      <p style="margin-top: 1rem;">— Matthew 6:28–29</p>
     </div>
   </section>
 
-  <!-- Mission Section -->
-  <section class="fade-up" style="animation-delay: 0.4s; margin: 3rem 0;">
-    <div class="card mission-card" style="text-align: center;">
-      <h2 style="font-size: 2rem; margin-bottom: 0.5rem;">🌾 Our Mission</h2>
-      <div style="width: 60px; height: 3px; background: #e2bc7c; margin: 0.5rem auto 1.2rem;"></div>
-      <p style="max-width: 750px; margin: 0 auto; font-size: 1.1rem;">
-        Lily of the Valley is a <strong>faith-based initiative</strong> rooted in generosity. Every transaction and community effort helps 
-        distribute <strong>Holy Bibles</strong> to those seeking hope. We're building a community-driven purpose where 
-        memecoin culture meets eternal impact. <br><br> 
-        By holding $LOTV, you become part of a movement that sows seeds of faith — funding scripture distribution, 
-        supporting missionary work, and glorifying the One who clothes the lilies.
-      </p>
+  <!-- Mission -->
+  <section class="fade-up" style="animation-delay: 0.4s;">
+    <div class="section-card" style="text-align: center;">
+      <h2 style="font-size: 2rem;">🌾 Our Mission</h2>
+      <div style="width: 60px; height: 3px; background: #e2bc7c; margin: 0.5rem auto 1rem;"></div>
+      <p style="max-width: 750px; margin: 0 auto; font-size: 1.1rem;">Lily of the Valley is a <strong>faith-based initiative</strong> rooted in generosity. Every transaction helps distribute <strong>Holy Bibles</strong> to those seeking hope. By holding $LILV, you become part of a movement that sows seeds of faith — funding scripture distribution and glorifying the One who clothes the lilies.</p>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="fade-up" style="animation-delay: 0.45s;">
+    <div class="section-card">
+      <h2 style="text-align: center;">📊 Impact So Far</h2>
+      <div style="width: 60px; height: 3px; background: #e2bc7c; margin: 0.5rem auto 1rem;"></div>
+      <div class="stats-grid">
+        <div class="stat-card"><div class="stat-number">500+</div><div>Community Members</div></div>
+        <div class="stat-card"><div class="stat-number">150+</div><div>Bibles Donated</div></div>
+        <div class="stat-card"><div class="stat-number">10+</div><div>Countries Reached</div></div>
+        <div class="stat-card"><div class="stat-number">$25K+</div><div>Committed to Missions</div></div>
+      </div>
     </div>
   </section>
 
   <!-- Token Section -->
-  <section class="fade-up" style="animation-delay: 0.5s; margin: 2rem 0;">
-    <div class="card token-card" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1.5rem;">
-      <div>
-        <h2 style="font-size: 1.9rem;">$LOTV Token</h2>
-        <p style="margin-top: 0.5rem;"><strong>Name:</strong> Lily of the Valley<br>
-        <strong>Symbol:</strong> $LOTV<br>
-        <strong>Chain:</strong> Solana ⚡<br>
-        <strong>Supply:</strong> Reflecting divine abundance, community-owned</p>
+  <section class="fade-up" style="animation-delay: 0.5s;">
+    <div class="section-card" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem;">
+      <div><h2 style="font-size: 1.9rem;">$LILV Token</h2><p><strong>Name:</strong> Lily of the Valley<br><strong>Symbol:</strong> $LILV<br><strong>Chain:</strong> Solana ⚡<br><strong>Supply:</strong> Community-owned, faith-driven</p></div>
+      <div style="background: rgba(215, 180, 100, 0.2); border-radius: 100px; padding: 0.8rem 1.5rem;"><span style="font-weight: 600; font-size: 1.4rem;">🌼 LILV</span></div>
+    </div>
+  </section>
+
+  <!-- Roadmap -->
+  <section class="fade-up" style="animation-delay: 0.6s;">
+    <div class="section-card">
+      <h2 style="text-align: center;">🗺️ Roadmap</h2>
+      <div style="width: 60px; height: 3px; background: #e2bc7c; margin: 0.5rem auto 1rem;"></div>
+      <div class="roadmap-grid">
+        <div class="roadmap-item"><div class="roadmap-phase">Phase 1 🌱</div><h3>Q2 2025 - Seed of Faith</h3><ul style="margin-top: 8px; padding-left: 20px;"><li>Launch $LILV Token</li><li>Community building</li><li>First Bible donations</li></ul></div>
+        <div class="roadmap-item"><div class="roadmap-phase">Phase 2 🌿</div><h3>Q3 2025 - Growing in Grace</h3><ul style="margin-top: 8px; padding-left: 20px;"><li>Bible distribution partners</li><li>Staking rewards</li><li>Exchange listings</li></ul></div>
+        <div class="roadmap-item"><div class="roadmap-phase">Phase 3 🌸</div><h3>Q4 2025 - Blooming Harvest</h3><ul style="margin-top: 8px; padding-left: 20px;"><li>Global Bible milestone</li><li>Faith-based NFTs</li><li>Charity DAO</li></ul></div>
+        <div class="roadmap-item"><div class="roadmap-phase">Phase 4 ✝️</div><h3>2026 - Eternal Impact</h3><ul style="margin-top: 8px; padding-left: 20px;"><li>Scholarship programs</li><li>Church planting</li><li>Full ecosystem</li></ul></div>
       </div>
-      <div style="background: rgba(215, 180, 100, 0.2); border-radius: 100px; padding: 0.8rem 1.8rem;">
-        <span style="font-weight: 600; font-size: 1.6rem;">🌼 LOTV</span>
+    </div>
+  </section>
+
+  <!-- Team Section -->
+  <section class="fade-up" style="animation-delay: 0.65s;">
+    <div class="section-card">
+      <h2 style="text-align: center;">👥 The Shepherd's Staff</h2>
+      <div style="width: 60px; height: 3px; background: #e2bc7c; margin: 0.5rem auto 1rem;"></div>
+      <div class="team-grid">
+        <div class="team-card"><div class="team-emoji">🙏</div><h3>Founder</h3><p>Faith-driven leader with 10+ years in ministry</p></div>
+        <div class="team-card"><div class="team-emoji">⚡</div><h3>Solana Dev</h3><p>Blockchain expert building on Solana since 2021</p></div>
+        <div class="team-card"><div class="team-emoji">📖</div><h3>Bible Outreach</h3><p>Missionary coordinating global Bible distribution</p></div>
+        <div class="team-card"><div class="team-emoji">🎨</div><h3>Creative Director</h3><p>Designing the visual language of faith</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="fade-up" style="animation-delay: 0.7s;">
+    <div class="section-card">
+      <h2 style="text-align: center;">💬 Community Voices</h2>
+      <div style="width: 60px; height: 3px; background: #e2bc7c; margin: 0.5rem auto 1rem;"></div>
+      <div class="testimonials-grid">
+        <div class="testimonial-card">"This is more than a coin - it's a movement. I've seen real Bibles being donated!" - Sarah</div>
+        <div class="testimonial-card">"Finally a crypto project that aligns with my faith. The transparency is refreshing." - Michael</div>
+        <div class="testimonial-card">"The community is so welcoming. Proud to hold $LILV and support the mission." - David</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="fade-up" style="animation-delay: 0.75s;">
+    <div class="section-card">
+      <h2 style="text-align: center;">❓ Frequently Asked Questions</h2>
+      <div style="width: 60px; height: 3px; background: #e2bc7c; margin: 0.5rem auto 1rem;"></div>
+      <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">What makes $LILV different from other memecoins? <span>+</span></div><div class="faq-answer">$LILV is purpose-driven. Every transaction contributes to real-world Bible distribution and faith-based initiatives. We're combining the fun of crypto with eternal impact.</div></div>
+      <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">How are the Bible donations tracked? <span>+</span></div><div class="faq-answer">We partner with established Bible distribution organizations and provide regular transparency reports showing exactly how many Bibles have been donated and where they've gone.</div></div>
+      <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">How can I get involved? <span>+</span></div><div class="faq-answer">Join our Telegram community, hold $LILV tokens, and help spread the word. We're building a community of faith-driven individuals who want to make a difference.</div></div>
+      <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">Is $LILV audited? <span>+</span></div><div class="faq-answer">Yes, our smart contract has been audited by leading security firms to ensure safety and transparency for all holders.</div></div>
+    </div>
+  </section>
+
+  <!-- Newsletter -->
+  <section class="fade-up" style="animation-delay: 0.8s;">
+    <div class="section-card" style="text-align: center;">
+      <h2 style="font-size: 1.8rem;">📧 Stay Updated</h2>
+      <div style="width: 60px; height: 3px; background: #e2bc7c; margin: 0.5rem auto 1rem;"></div>
+      <p>Join our mailing list for updates on Bible donations, roadmap progress, and community events.</p>
+      <div style="display: flex; gap: 0.5rem; justify-content: center; margin-top: 1.5rem; flex-wrap: wrap;">
+        <input type="email" placeholder="Enter your email" style="padding: 0.8rem 1.2rem; border-radius: 60px; border: 1px solid #e2bc7c; background: white; min-width: 250px;">
+        <button class="btn" style="background: #e2bc7c;">Subscribe</button>
       </div>
     </div>
   </section>
 
   <!-- Social Links -->
-  <section class="fade-up" style="animation-delay: 0.6s; margin: 2rem 0 1rem;">
-    <div style="text-align: center;">
-      <h3 style="font-family: 'Cormorant Garamond'; font-size: 1.8rem;">Join the Flock</h3>
-      <div class="social-icons">
-        <a href="https://x.com/LillioValli" target="_blank" class="social-link">𝕏 Twitter / X</a>
-        <a href="https://t.me/+K3In-nL7kw40MWIx" target="_blank" class="social-link">✈ Telegram Community</a>
-      </div>
-      <p style="margin-top: 1.5rem; font-size: 0.9rem;">Come share in faith, fellowship, and purpose.</p>
+  <section class="fade-up" style="animation-delay: 0.85s; text-align: center;">
+    <h3 style="font-family: 'Cormorant Garamond'; font-size: 1.8rem;">Join the Flock</h3>
+    <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 1rem;">
+      <a href="https://x.com/LillioValli" target="_blank" style="background: #FFF9EF; padding: 0.7rem 1.5rem; border-radius: 60px; text-decoration: none; color: #5c471f; border: 1px solid #eedbae;">𝕏 Twitter / X</a>
+      <a href="https://t.me/+K3In-nL7kw40MWIx" target="_blank" style="background: #FFF9EF; padding: 0.7rem 1.5rem; border-radius: 60px; text-decoration: none; color: #5c471f; border: 1px solid #eedbae;">✈ Telegram Community</a>
     </div>
   </section>
   
-  <footer>
+  <footer style="border-top: 1px solid rgba(200, 170, 100, 0.3); margin-top: 3rem; text-align: center; padding-top: 2rem;">
     <p>Lily of the Valley — inspired by Matthew 6:28. Spreading hope, one Bible at a time. 🌸</p>
-    <p style="margin-top: 0.5rem;">© 2025 $LOTV · Faith on Solana</p>
+    <p style="margin-top: 0.5rem;">© 2025 $LILV · Faith on Solana</p>
   </footer>
 </main>
 
 <script>
-  // COUNTDOWN TIMER to April 1st
+  // Logo - Replace with your actual logo URL
+  const logoImg = document.getElementById('logoImage');
+  // Uncomment and replace with your actual logo URL:
+  // logoImg.src = 'https://your-logo-url.com/logo.png';
+  
+  // Waitlist functionality
+  let waitlistEntries = [];
+  
+  function openWaitlistModal() {
+    document.getElementById('waitlistModal').classList.add('open');
+    document.getElementById('waitlistForm').style.display = 'block';
+    document.getElementById('waitlistSuccess').style.display = 'none';
+    document.getElementById('waitlistWallet').value = '';
+    document.getElementById('waitlistEmail').value = '';
+  }
+  
+  function closeWaitlistModal() {
+    document.getElementById('waitlistModal').classList.remove('open');
+  }
+  
+  function submitToWaitlist() {
+    const walletAddress = document.getElementById('waitlistWallet').value.trim();
+    const email = document.getElementById('waitlistEmail').value.trim();
+    
+    // Basic Solana wallet address validation
+    const solanaRegex = /^[1-9A-HJ-NP-Za-km-z]{32,44}$/;
+    
+    if (!walletAddress) {
+      alert('🌸 Please enter your Solana wallet address to join the waitlist.');
+      return;
+    }
+    
+    if (!solanaRegex.test(walletAddress)) {
+      alert('⚠️ Please enter a valid Solana wallet address.\n\nExample: 7EcDhTQvX4XpGq5Xh4xqVp5zX5yX5zX5yX5zX5yX5zX5');
+      return;
+    }
+    
+    // Check if already on waitlist
+    if (waitlistEntries.some(entry => entry.wallet === walletAddress)) {
+      alert('🙏 This wallet address is already on the waitlist!');
+      return;
+    }
+    
+    // Add to waitlist
+    waitlistEntries.push({ wallet: walletAddress, email: email, timestamp: new Date() });
+    
+    // Show success
+    document.getElementById('waitlistForm').style.display = 'none';
+    document.getElementById('waitlistSuccess').style.display = 'block';
+    
+    // Log to console (in production, this would send to a server)
+    console.log('Waitlist entries:', waitlistEntries.length);
+  }
+  
+  // Close modal when clicking outside
+  window.onclick = function(event) {
+    const modal = document.getElementById('waitlistModal');
+    if (event.target === modal) {
+      closeWaitlistModal();
+    }
+  }
+
+  // Countdown Timer
   function getNextAprilFirst() {
     const now = new Date();
     let year = now.getFullYear();
     let target = new Date(year, 3, 1);
-    if (target < now) {
-      target = new Date(year + 1, 3, 1);
-    }
+    if (target < now) target = new Date(year + 1, 3, 1);
     return target;
   }
 
   function updateCountdown() {
-    const targetDate = getNextAprilFirst();
+    const target = getNextAprilFirst();
     const now = new Date();
-    const diff = targetDate - now;
-
+    const diff = target - now;
+    
     if (diff <= 0) {
-      document.getElementById('countdown').innerHTML = "🌼 Launched! 🌼";
+      document.getElementById('days').innerHTML = '00';
+      document.getElementById('hours').innerHTML = '00';
+      document.getElementById('minutes').innerHTML = '00';
+      document.getElementById('seconds').innerHTML = '00';
       return;
     }
-
+    
     const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((diff % (86400000)) / (3600000));
-    const minutes = Math.floor((diff % 3600000) / 60000);
-    const seconds = Math.floor((diff % 60000) / 1000);
-
-    document.getElementById('countdown').innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+    
+    document.getElementById('days').innerHTML = days.toString().padStart(2, '0');
+    document.getElementById('hours').innerHTML = hours.toString().padStart(2, '0');
+    document.getElementById('minutes').innerHTML = minutes.toString().padStart(2, '0');
+    document.getElementById('seconds').innerHTML = seconds.toString().padStart(2, '0');
   }
-
+  
   updateCountdown();
   setInterval(updateCountdown, 1000);
 
-  // FALLING LILY PETALS ANIMATION
-  const canvas = document.getElementById('petal-canvas');
-  let ctx = canvas.getContext('2d');
-  let width = window.innerWidth;
-  let height = window.innerHeight;
+  // Bible verses
+  const bibleVersesList = ["John 3:16", "Psalm 23:1", "Philippians 4:13", "Romans 8:28", "Jeremiah 29:11", "Matthew 11:28", "Isaiah 40:31", "Proverbs 3:5", "Joshua 1:9", "Psalm 46:10"];
+  let currentVerseIndex = 0, isFlipping = false;
+  const bibleBook = document.getElementById('bibleBook');
+  const bibleVerseText = document.getElementById('bibleVerseText');
   
-  let petals = [];
-  const PETAL_COUNT = 52;
-  
-  function resizeCanvas() {
-    width = window.innerWidth;
-    height = window.innerHeight;
-    canvas.width = width;
-    canvas.height = height;
+  function updateBibleVerse() {
+    if (isFlipping) return;
+    isFlipping = true;
+    bibleVerseText.textContent = bibleVersesList[currentVerseIndex];
+    bibleBook.classList.add('flipped');
+    setTimeout(() => { bibleBook.classList.remove('flipped'); setTimeout(() => { isFlipping = false; }, 800); }, 3000);
   }
   
-  class Petal {
-    constructor(x, y, size, speedX, speedY, rotation, rotSpeed, opacity, colorVariant) {
-      this.x = x;
-      this.y = y;
-      this.size = size;
-      this.speedX = speedX;
-      this.speedY = speedY;
-      this.rotation = rotation;
-      this.rotSpeed = rotSpeed;
-      this.opacity = opacity;
-      this.colorVariant = colorVariant;
+  let lastScrollPos = 0, scrollCooldown = false;
+  window.addEventListener('scroll', () => {
+    if (scrollCooldown) return;
+    const scrollPos = window.scrollY;
+    if (Math.abs(scrollPos - lastScrollPos) > 250) {
+      currentVerseIndex = (currentVerseIndex + 1) % bibleVersesList.length;
+      updateBibleVerse();
+      lastScrollPos = scrollPos;
+      scrollCooldown = true;
+      setTimeout(() => { scrollCooldown = false; }, 3500);
     }
-    
-    update() {
-      this.x += this.speedX;
-      this.y += this.speedY;
-      this.rotation += this.rotSpeed;
-      if (this.y > height + 60 || this.x < -70 || this.x > width + 70) {
-        this.reset();
-      }
-    }
-    
-    reset() {
-      this.x = Math.random() * width;
-      this.y = -30 - Math.random() * 100;
-      this.speedX = -0.25 + Math.random() * 0.7;
-      this.speedY = 0.45 + Math.random() * 1.2;
-      this.size = 10 + Math.random() * 18;
-      this.rotSpeed = (Math.random() - 0.5) * 0.018;
-      this.opacity = 0.4 + Math.random() * 0.55;
-      this.colorVariant = Math.random() > 0.6 ? 'cream' : 'softgreen';
-    }
-    
-    draw(ctx) {
-      ctx.save();
-      ctx.translate(this.x, this.y);
-      ctx.rotate(this.rotation);
-      ctx.beginPath();
-      ctx.moveTo(0, -this.size * 0.7);
-      ctx.quadraticCurveTo(this.size * 0.5, -this.size * 0.2, this.size * 0.3, this.size * 0.4);
-      ctx.quadraticCurveTo(0, this.size * 0.6, -this.size * 0.3, this.size * 0.4);
-      ctx.quadraticCurveTo(-this.size * 0.5, -this.size * 0.2, 0, -this.size * 0.7);
-      
-      let fillColor;
-      if (this.colorVariant === 'cream') {
-        fillColor = `rgba(250, 240, 190, ${this.opacity})`;
-      } else {
-        fillColor = `rgba(210, 225, 170, ${this.opacity * 0.85})`;
-      }
-      ctx.fillStyle = fillColor;
-      ctx.fill();
-      ctx.beginPath();
-      ctx.ellipse(-2, -this.size*0.2, this.size*0.2, this.size*0.3, 0, 0, Math.PI*2);
-      ctx.fillStyle = `rgba(255, 255, 225, ${this.opacity * 0.6})`;
-      ctx.fill();
-      ctx.restore();
-    }
-  }
-  
-  function initPetals() {
-    petals = [];
-    for (let i = 0; i < PETAL_COUNT; i++) {
-      const x = Math.random() * width;
-      const y = Math.random() * height;
-      const size = 10 + Math.random() * 18;
-      const speedX = -0.2 + Math.random() * 0.65;
-      const speedY = 0.5 + Math.random() * 1.3;
-      const rotation = Math.random() * Math.PI * 2;
-      const rotSpeed = (Math.random() - 0.5) * 0.02;
-      const opacity = 0.45 + Math.random() * 0.45;
-      const colorVariant = Math.random() > 0.6 ? 'cream' : 'softgreen';
-      const petal = new Petal(x, y, size, speedX, speedY, rotation, rotSpeed, opacity, colorVariant);
-      petals.push(petal);
-    }
-  }
-  
-  let animationFrame;
-  function animatePetals() {
-    if (!ctx) return;
-    ctx.clearRect(0, 0, width, height);
-    for (let p of petals) {
-      p.update();
-      p.draw(ctx);
-    }
-    animationFrame = requestAnimationFrame(animatePetals);
-  }
-  
-  function startPetalFall() {
-    resizeCanvas();
-    initPetals();
-    animatePetals();
-  }
-  
-  window.addEventListener('resize', () => {
-    resizeCanvas();
-    initPetals();
   });
   
-  startPetalFall();
-  canvas.style.pointerEvents = 'none';
+  bibleVerseText.textContent = bibleVersesList[0];
+  setInterval(() => { if (!isFlipping && !scrollCooldown) { currentVerseIndex = (currentVerseIndex + 1) % bibleVersesList.length; updateBibleVerse(); } }, 8000);
+
+  // Chatbot
+  function toggleChat() { document.getElementById('chatbotWindow').classList.toggle('open'); }
+
+  const bibleVersesObj = {
+    "john 3:16": "For God so loved the world that he gave his one and only Son, that whoever believes in him shall not perish but have eternal life.",
+    "psalm 23:1": "The Lord is my shepherd; I shall not want.",
+    "philippians 4:13": "I can do all things through Christ who strengthens me.",
+    "romans 8:28": "And we know that in all things God works for the good of those who love him."
+  };
+
+  function sendMessage() {
+    const input = document.getElementById('chatInput');
+    const message = input.value.trim();
+    if (!message) return;
+    const messagesDiv = document.getElementById('chatMessages');
+    const userMsgDiv = document.createElement('div');
+    userMsgDiv.className = 'message user-message';
+    userMsgDiv.textContent = message;
+    messagesDiv.appendChild(userMsgDiv);
+    const verseKey = message.toLowerCase();
+    let response = bibleVersesObj[verseKey] || "Try: John 3:16, Psalm 23, Philippians 4:13, or Romans 8:28";
+    const botMsgDiv = document.createElement('div');
+    botMsgDiv.className = 'message bot-message';
+    botMsgDiv.textContent = response;
+    messagesDiv.appendChild(botMsgDiv);
+    messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    input.value = '';
+  }
+
+  // FAQ Toggle
+  function toggleFAQ(element) {
+    const answer = element.nextElementSibling;
+    answer.classList.toggle('show');
+    const span = element.querySelector('span');
+    span.textContent = answer.classList.contains('show') ? '−' : '+';
+  }
 </script>
 </body>
 </html>

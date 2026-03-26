@@ -30,7 +30,7 @@
             overflow: hidden;
         }
 
-        /* Background using CSS background-image (this was working before) */
+        /* Background using CSS background-image */
         .bg-base {
             position: fixed;
             top: 0;
@@ -48,7 +48,6 @@
             z-index: 0;
         }
 
-        /* Fallback color that matches image */
         .bg-base::before {
             content: '';
             position: absolute;
@@ -65,7 +64,6 @@
             50% { transform: scale(1.02); }
         }
 
-        /* Soft moving light overlay */
         .light-overlay {
             position: fixed;
             top: 0;
@@ -83,7 +81,6 @@
             50% { opacity: 0.8; }
         }
 
-        /* Drifting clouds */
         .cloud-layer {
             position: fixed;
             top: 0;
@@ -112,7 +109,6 @@
             }
         }
 
-        /* Sparkles */
         .sparkle-layer {
             position: fixed;
             top: 0;
@@ -166,7 +162,6 @@
             50% { opacity: 0.5; }
         }
 
-        /* Text overlay for readability */
         .text-overlay {
             position: fixed;
             top: 0;
@@ -182,7 +177,6 @@
             z-index: 2;
         }
 
-        /* Text container */
         .text-container {
             position: relative;
             z-index: 3;
@@ -193,7 +187,7 @@
             text-shadow: 2px 2px 12px rgba(0, 0, 0, 0.7);
         }
 
-        /* Logo */
+        /* ===== LOGO SECTION - READY FOR YOUR IMAGE ===== */
         .logo-container {
             margin-bottom: 1rem;
             display: flex;
@@ -202,28 +196,52 @@
         }
 
         .logo {
-            width: 85px;
-            height: 85px;
-            background: rgba(255, 245, 200, 0.12);
+            width: 90px;
+            height: 90px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto;
+            transition: all 0.3s ease;
+            animation: logoFloat 3s ease-in-out infinite;
+        }
+
+        /* Logo image styling - REPLACE THE URL WITH YOUR LOGO */
+        .logo-img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 50%;
+            filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
+            transition: transform 0.3s ease;
+        }
+
+        .logo-img:hover {
+            transform: scale(1.05);
+        }
+
+        @keyframes logoFloat {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-5px);
+            }
+        }
+
+        /* Fallback if no logo image (using flower icon) */
+        .logo-fallback {
+            width: 90px;
+            height: 90px;
+            background: rgba(255, 245, 200, 0.15);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             backdrop-filter: blur(4px);
             border: 1px solid rgba(255, 235, 170, 0.5);
-            transition: all 0.3s ease;
-            animation: logoGlow 3s ease-in-out infinite;
-        }
-
-        @keyframes logoGlow {
-            0%, 100% { box-shadow: 0 0 5px rgba(255, 235, 170, 0.3); }
-            50% { box-shadow: 0 0 20px rgba(255, 235, 170, 0.6); }
-        }
-
-        .logo-icon {
-            font-size: 3.2rem;
-            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+            font-size: 3rem;
         }
 
         .ticker {
@@ -447,8 +465,10 @@
                 width: 70px;
                 height: 70px;
             }
-            .logo-icon {
-                font-size: 2.6rem;
+            .logo-fallback {
+                width: 70px;
+                height: 70px;
+                font-size: 2.3rem;
             }
         }
 
@@ -475,8 +495,10 @@
                 width: 55px;
                 height: 55px;
             }
-            .logo-icon {
-                font-size: 2rem;
+            .logo-fallback {
+                width: 55px;
+                height: 55px;
+                font-size: 1.8rem;
             }
         }
 
@@ -498,7 +520,6 @@
 </head>
 <body>
     <div class="hero">
-        <!-- Background layers (using CSS background-image - this works) -->
         <div class="bg-base"></div>
         <div class="light-overlay"></div>
         <div class="cloud-layer"></div>
@@ -507,9 +528,13 @@
         <div class="text-overlay"></div>
         
         <div class="text-container">
+            <!-- LOGO SECTION - REPLACE THE IMAGE URL WITH YOUR ACTUAL LOGO -->
             <div class="logo-container">
                 <div class="logo">
-                   <img class="logo-img" src="https://i.imgur.com/vYqW5um.jpeg" alt="$LILV Logo">
+                    <!-- OPTION 1: Use your logo image - REPLACE the src URL with your logo -->
+                    <img class="logo-img" src="https://i.imgur.com/vYqW5um.jpeg" alt="$LILV Logo" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'logo-fallback\'>🌸</div>'">
+                    
+                    <!-- OPTION 2: If you don't have a logo image yet, the fallback flower will show -->
                 </div>
             </div>
             

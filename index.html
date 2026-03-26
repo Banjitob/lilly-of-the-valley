@@ -16,7 +16,6 @@
             height: 100%;
             width: 100%;
             font-family: 'Georgia', 'Times New Roman', 'Segoe UI', serif;
-            background: #1a2a1a;
         }
 
         .hero {
@@ -30,7 +29,8 @@
             overflow: hidden;
         }
 
-        .animated-bg {
+        /* Background with multiple fallback layers */
+        .bg-container {
             position: fixed;
             top: 0;
             left: 0;
@@ -42,30 +42,27 @@
             overflow: hidden;
         }
 
-        .bg-base {
+        /* Primary background - your image */
+        .bg-image {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('https://i.imgur.com/FaCdCxT.jpeg');
-            background-size: cover;
-            background-position: center center;
-            background-repeat: no-repeat;
-            image-rendering: crisp-edges;
-            image-rendering: pixelated;
-            filter: contrast(1.08) saturate(1.02);
+            object-fit: cover;
+            object-position: center;
+            filter: contrast(1.05) saturate(1.02);
             animation: gentleScale 20s ease-in-out infinite;
         }
 
-        .bg-base::before {
-            content: '';
+        /* Fallback gradient if image fails */
+        .bg-fallback {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: #2a3a2a;
+            background: linear-gradient(135deg, #2c3e2b, #1e2a1a, #3a4a2a);
             z-index: -1;
         }
 
@@ -74,6 +71,7 @@
             50% { transform: scale(1.02); }
         }
 
+        /* Soft moving light overlay */
         .light-overlay {
             position: absolute;
             top: 0;
@@ -90,6 +88,7 @@
             50% { opacity: 0.8; }
         }
 
+        /* Drifting clouds */
         .cloud-layer {
             position: absolute;
             top: 0;
@@ -117,6 +116,7 @@
             }
         }
 
+        /* Sparkles */
         .sparkle-layer {
             position: absolute;
             top: 0;
@@ -168,6 +168,7 @@
             50% { opacity: 0.5; }
         }
 
+        /* Text overlay for readability */
         .text-overlay {
             position: fixed;
             top: 0;
@@ -177,12 +178,13 @@
             background: linear-gradient(
                 to bottom,
                 rgba(0, 0, 0, 0.3) 0%,
-                rgba(0, 0, 0, 0.6) 50%,
-                rgba(0, 0, 0, 0.75) 100%
+                rgba(0, 0, 0, 0.55) 50%,
+                rgba(0, 0, 0, 0.7) 100%
             );
             z-index: 1;
         }
 
+        /* Text container */
         .text-container {
             position: relative;
             z-index: 2;
@@ -193,7 +195,7 @@
             text-shadow: 2px 2px 12px rgba(0, 0, 0, 0.7);
         }
 
-        /* ===== LOGO STYLES ===== */
+        /* Logo */
         .logo-container {
             margin-bottom: 1rem;
             display: flex;
@@ -202,9 +204,9 @@
         }
 
         .logo {
-            width: 80px;
-            height: 80px;
-            background: rgba(255, 245, 200, 0.15);
+            width: 85px;
+            height: 85px;
+            background: rgba(255, 245, 200, 0.12);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -216,35 +218,14 @@
             animation: logoGlow 3s ease-in-out infinite;
         }
 
-        .logo:hover {
-            transform: scale(1.05);
-            border-color: rgba(255, 235, 170, 0.9);
-            box-shadow: 0 0 20px rgba(255, 220, 120, 0.3);
-        }
-
-        /* Default lily icon (replace with your actual logo image) */
-        .logo-icon {
-            font-size: 3rem;
-            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
-        }
-
-        /* If you want to use an actual image logo, uncomment this and replace the URL */
-        *
-        .logo-img {
-            width: 65px;
-            height: 65px;
-            object-fit: contain;
-            border-radius: 50%;
-        }
-        *
-
         @keyframes logoGlow {
-            0%, 100% {
-                box-shadow: 0 0 5px rgba(255, 235, 170, 0.3);
-            }
-            50% {
-                box-shadow: 0 0 20px rgba(255, 235, 170, 0.6);
-            }
+            0%, 100% { box-shadow: 0 0 5px rgba(255, 235, 170, 0.3); }
+            50% { box-shadow: 0 0 20px rgba(255, 235, 170, 0.6); }
+        }
+
+        .logo-icon {
+            font-size: 3.2rem;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
         }
 
         .ticker {
@@ -453,7 +434,6 @@
             }
             .sub {
                 font-size: 0.85rem;
-                margin-bottom: 0.8rem;
             }
             .verse-text {
                 font-size: 0.85rem;
@@ -466,11 +446,11 @@
                 min-width: 45px;
             }
             .logo {
-                width: 65px;
-                height: 65px;
+                width: 70px;
+                height: 70px;
             }
             .logo-icon {
-                font-size: 2.5rem;
+                font-size: 2.6rem;
             }
         }
 
@@ -483,9 +463,6 @@
                 font-size: 2.2rem;
                 letter-spacing: 3px;
             }
-            .sub {
-                font-size: 0.7rem;
-            }
             .verse-text {
                 font-size: 0.7rem;
                 line-height: 1.45;
@@ -495,9 +472,6 @@
             }
             .time-block {
                 min-width: 38px;
-            }
-            .pillar {
-                font-size: 0.6rem;
             }
             .logo {
                 width: 55px;
@@ -526,8 +500,10 @@
 </head>
 <body>
     <div class="hero">
-        <div class="animated-bg">
-            <div class="bg-base"></div>
+        <div class="bg-container">
+            <!-- Your image - using img tag for better reliability -->
+            <img class="bg-image" id="backgroundImage" src="https://i.imgur.com/FaCdCxT.jpeg" alt="Background" onerror="handleImageError()">
+            <div class="bg-fallback"></div>
             <div class="light-overlay"></div>
             <div class="cloud-layer"></div>
             <div class="depth-overlay"></div>
@@ -536,15 +512,9 @@
         <div class="text-overlay"></div>
         
         <div class="text-container">
-            <!-- LOGO SECTION -->
             <div class="logo-container">
                 <div class="logo">
-                    <!-- Option 1: Using a lily emoji as placeholder logo -->
                    <img class="logo-img" src="https://i.imgur.com/vYqW5um.jpeg" alt="$LILV Logo">
-                    
-                    <!-- Option 2: If you have an actual logo image, replace the above with this:
-                    <img class="logo-img" src="your-logo.png" alt="$LILV Logo">
-                    -->
                 </div>
             </div>
             
@@ -596,6 +566,15 @@
     </div>
 
     <script>
+        // Handle image loading errors
+        function handleImageError() {
+            const bgImage = document.getElementById('backgroundImage');
+            if (bgImage) {
+                bgImage.style.display = 'none';
+            }
+        }
+        
+        // Countdown function
         function getNextAprilFirst() {
             const now = new Date();
             let year = now.getFullYear();
@@ -658,6 +637,7 @@
         updateCountdown();
         setInterval(updateCountdown, 1000);
         
+        // Create sparkles
         function createSparkles() {
             const container = document.getElementById('sparkleLayer');
             if (!container) return;
@@ -679,13 +659,11 @@
         
         createSparkles();
         
-        const bgBase = document.querySelector('.bg-base');
-        if (bgBase) {
-            const img = new Image();
-            img.src = 'https://i.imgur.com/FaCdCxT.jpeg';
-            img.onerror = function() {
-                bgBase.style.backgroundImage = 'none';
-                bgBase.style.backgroundColor = '#2a4a2a';
+        // Try to reload image if it fails
+        const bgImg = document.getElementById('backgroundImage');
+        if (bgImg) {
+            bgImg.onerror = function() {
+                this.style.display = 'none';
             };
         }
     </script>
